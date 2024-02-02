@@ -25,8 +25,31 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  email: z
+    .string()
+    .min(1, {
+      message: "Please enter your email.",
+    })
+    .email({
+      message: "Invalid email address.",
+    }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters.",
+  }),
+});
 
 const Login = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -39,6 +62,10 @@ const Login = () => {
     }));
   };
 
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
   return (
     <>
       <Card className="w-[350px]">
@@ -46,37 +73,53 @@ const Login = () => {
           <CardTitle>Login to Meta Doctor</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={data.email}
-                  onChange={handleChange}
-                  placeholder="Enter Your Email"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  onChange={handleChange}
-                  value={data.password}
-                  placeholder="Enter Your Password"
-                />
-              </div>
-            </div>
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label>Email</Label>
+                    <FormControl>
+                      <Input placeholder="example@domain.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label>Password</Label>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your password"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button type="submit">Login</Button>
+            </form>
+          </Form>
         </CardContent>
-        <CardFooter className="flex-col items-start justify-between">
-          <Button>Login</Button>
+        <CardFooter className="flex-col items-start justify-center">
           <p className="leading-7 [&:not(:first-child)]:mt-6 text-gray-500">
-            Already Have an Account?? <Link href="/register" className="text-decoration-line text-black dark:text-gray-200">SignUp</Link>
+            Already Have an Account??{" "}
+            <Link
+              href="/register"
+              className="text-decoration-line text-black dark:text-gray-200"
+            >
+              SignUp
+            </Link>
           </p>
         </CardFooter>
       </Card>
