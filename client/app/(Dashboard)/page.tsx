@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import DashboardNavbar from "./components/DashboardNavbar";
 import DashboardSidebar from "./components/DashboardSidebar";
+import DashboardHome from "./components/DashboardHome";
 
 const Dashboard = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -13,8 +14,10 @@ const Dashboard = () => {
     <>
       <div className="flex flex-col h-screen">
         <DashboardNavbar toggleSidebar={toggleSidebar} />
-
-        <DashboardSidebar isCollapsed={isSidebarCollapsed} />
+        <div className="flex flex-row w-full h-screen">
+          <DashboardSidebar isCollapsed={isSidebarCollapsed} />
+          <DashboardHome />
+        </div>
       </div>
     </>
   );

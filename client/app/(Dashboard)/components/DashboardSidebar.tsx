@@ -25,7 +25,7 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: Boolean }) => {
             Dashboard
           </span>
         </Link>
-        {/* More links can be added here with similar structure */}
+        
       </div>
     </>
   );
