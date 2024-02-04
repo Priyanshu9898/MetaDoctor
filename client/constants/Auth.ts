@@ -4,3 +4,6 @@ export interface LoginType {
 
 }
 
+export interface SubMenuOpenState {
+    [key: number]: boolean;
+  }
