@@ -15,8 +15,10 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <DashboardNavbar toggleSidebar={toggleSidebar} />
         <div className="flex flex-row min-w-full h-screen">
           <DashboardSidebar isCollapsed={isSidebarCollapsed} />
+          <div className="p-4 h-full scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 w-full">
 
           {children}
+          </div>
         </div>
       </div>
     </>
