@@ -1,5 +1,6 @@
 import React from "react";
 import Heading from "../../components/Heading";
+import ImageInput from "../../components/ImageInput";
 
 const OralDiseaseClassifier = () => {
   return (
@@ -9,6 +10,9 @@ const OralDiseaseClassifier = () => {
         title={"Oral Disease Detector"}
         description={"Upload Image and Find out the exact Disease."}
       />
+      <div className="md:p-10 mt-4 md:mt-0">
+        <ImageInput type={"oral"} />
+      </div>
     </>
   );
 };

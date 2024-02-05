@@ -1,5 +1,6 @@
 import React from "react";
 import Heading from "../../components/Heading";
+import ImageInput from "../../components/ImageInput";
 
 const FoodAdvisor = () => {
   return (
@@ -11,6 +12,9 @@ const FoodAdvisor = () => {
           "Upload Image of Your food to get the exact percentage of calory."
         }
       />
+      <div className="md:p-10 mt-4 md:mt-0">
+        <ImageInput type={"calory"} />
+      </div>
     </>
   );
 };

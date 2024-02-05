@@ -80,7 +80,7 @@ const Register = () => {
 
   return (
     <>
-      <Card className="w-[350px]">
+      <Card className="w-[360px]">
         <CardHeader>
           <CardTitle>Register to Meta Doctor</CardTitle>
         </CardHeader>
