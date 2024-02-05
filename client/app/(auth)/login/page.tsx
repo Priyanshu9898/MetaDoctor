@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
   email: z
@@ -42,6 +43,7 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -107,13 +109,24 @@ const Login = () => {
                 )}
               />
 
-              <Button type="submit">Login</Button>
+              <Button
+                disabled={loading}
+                type="submit"
+                className="p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
+              >
+                {loading && (
+                  <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  </>
+                )}
+                Login
+              </Button>
             </form>
           </Form>
         </CardContent>
         <CardFooter className="flex-col items-start justify-center">
           <p className="leading-7 [&:not(:first-child)]:mt-6 text-gray-500">
-            Already Have an Account??{" "}
+            Don't Have an Account??{" "}
             <Link
               href="/register"
               className="text-decoration-line text-black dark:text-gray-200"
