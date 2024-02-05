@@ -30,12 +30,12 @@ const SidebarMobile = () => {
     {
       href: "/Dashboard/OralDiseaseClassifier",
       label: "Oral Disease Detector",
-      imgSrc: "/Images/Sidebar/oral.png",
+      imgSrc: "/Images/Sidebar/Oral.png",
     },
     {
       href: "/Dashboard/KidneyDiseaseClassifier",
       label: "Kidney Disease Detector",
-      imgSrc: "/Images/Sidebar/Kidney.png",
+      imgSrc: "/Images/Sidebar/kidney.png",
     },
     {
       href: "/Dashboard/CancerDiseaseClassifier",

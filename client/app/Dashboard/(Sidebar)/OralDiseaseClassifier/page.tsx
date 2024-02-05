@@ -6,7 +6,7 @@ const OralDiseaseClassifier = () => {
   return (
     <>
       <Heading
-        imageIcon={"/Images/Sidebar/oral.png"}
+        imageIcon={"/Images/Sidebar/Oral.png"}
         title={"Oral Disease Detector"}
         description={"Upload Image and Find out the exact Disease."}
       />
