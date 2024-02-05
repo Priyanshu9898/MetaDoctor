@@ -1,0 +1,1 @@
+export const MEDICINE_RECOMMENDATION_API = "https://medicinerecommendationsystembackend.onrender.com"

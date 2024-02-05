@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { MEDICINE_RECOMMENDATION_API } from "@/utils/APIs/api";
+import axios from "axios";
 
 type Symptom = string;
 
@@ -188,11 +190,25 @@ const InputSymptoms = () => {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
+      const data = {
+        symptoms: selectedSymptoms,
+      };
       
+
+      console.log(data);
+      const res = await axios.post(
+        `${MEDICINE_RECOMMENDATION_API}/predict`,
+        data
+      );
+
+      console.log(res);
+
+      setLoading(false);
     } catch (error) {
-      
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>

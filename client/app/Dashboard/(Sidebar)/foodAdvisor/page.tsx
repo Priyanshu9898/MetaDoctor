@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import Heading from "../../components/Heading";
 
 const FoodAdvisor = () => {
   return (
-    <div>FoodAdvisor</div>
-  )
-}
+    <>
+      <Heading
+        imageIcon={"/Images/Sidebar/calory2.png"}
+        title={"Food Advisor"}
+        description={
+          "Upload Image of Your food to get the exact percentage of calory."
+        }
+      />
+    </>
+  );
+};
 
-export default FoodAdvisor
+export default FoodAdvisor;

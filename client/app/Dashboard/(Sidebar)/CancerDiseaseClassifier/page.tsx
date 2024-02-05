@@ -1,8 +1,15 @@
 import React from 'react'
+import Heading from '../../components/Heading'
 
 const CancerDiseaseClassifier = () => {
   return (
-    <div>CancerDiseaseClassifier</div>
+    <>
+      <Heading
+        imageIcon={"/Images/Sidebar/cancer.png"}
+        title={"Chest Cancer Detector"}
+        description={"Upload Image and Find out the exact Disease."}
+      />
+    </>
   )
 }
 
