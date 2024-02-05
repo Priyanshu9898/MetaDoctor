@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { MEDICINE_RECOMMENDATION_API } from "@/utils/APIs/api";
 import axios from "axios";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Symptom = string;
 
@@ -152,6 +153,12 @@ const InputSymptoms = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [showResult, setShowResult] = useState<boolean>(false);
+  const [description, setDescription] = useState<string[]>([]);
+  const [precautions, setPrecautions] = useState<string[]>([]);
+  const [diets, setDiets] = useState<string[]>([]);
+  const [medications, setMedications] = useState<string[]>([]);
+  const [workout, setWorkout] = useState<string[]>([]);
 
   const toggleSymptom = (symptom: Symptom) => {
     if (selectedSymptoms.includes(symptom)) {
@@ -194,7 +201,6 @@ const InputSymptoms = () => {
       const data = {
         symptoms: selectedSymptoms,
       };
-      
 
       console.log(data);
       const res = await axios.post(
@@ -202,11 +208,21 @@ const InputSymptoms = () => {
         data
       );
 
-      console.log(res);
+      console.log(res.data);
+
+      if (res.data) {
+        setShowResult(true);
+        setDescription(res.data.Description);
+        setPrecautions(res.data.Precautions);
+        setMedications(res.data.Medications);
+        setWorkout(res.data.Workout);
+        setDiets(res.data.diets);
+      }
 
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      setShowResult(false);
     }
   };
 
@@ -275,6 +291,8 @@ const InputSymptoms = () => {
           Start Diagnosis
         </Button>
       </div>
+
+      {showResult && <></>}
     </>
   );
 };
