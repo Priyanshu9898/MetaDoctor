@@ -25,6 +25,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@types/bcrypt": "^5.0.2",
     "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.3",
