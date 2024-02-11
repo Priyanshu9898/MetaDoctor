@@ -10,9 +10,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RegisterType } from "@/constants/Auth";
+import { LoginType } from "@/constants/Auth";
 import {
   Form,
   FormControl,
@@ -27,19 +37,11 @@ import { z } from "zod";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import {
-  FiUser,
-  FiMail,
-  FiPhone,
-  FiLock,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ChevronLeft, MailCheck } from "lucide-react";
+import { FiMail } from "react-icons/fi";
 
 const formSchema = z.object({
-  name: z.string().min(1, {
-    message: "Please enter your Name.",
-  }),
   email: z
     .string()
     .min(1, {
@@ -48,44 +50,21 @@ const formSchema = z.object({
     .email({
       message: "Invalid email address.",
     }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-  confirmPassword: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-  phone: z
-    .string()
-    .min(10, {
-      message: "Phone number must be at least 10 digits.",
-    })
-    .regex(/^\+?[1-9]\d{1,14}$/, {
-      message: "Invalid phone number format.",
-    }),
 });
 
-const RegisterPage = () => {
+const ForgotPassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
       email: "",
-      password: "",
-      confirmPassword: "",
-      phone: "",
     },
   });
 
   const [data, setData] = useState({
-    name: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    phone: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,38 +76,22 @@ const RegisterPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    setIsDialogOpen(true);
   }
 
   return (
     <>
-      <Card className="w-[400px]">
+      <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Register to Railway Dashboard</CardTitle>
+          <CardTitle className="text-center">Forgot Password</CardTitle>
+          <CardDescription className="text-center w-full">
+            Enter Your Email and We will send you instructions to reset your
+            password.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Name</Label>
-                    <FormControl>
-                      <div className="relative">
-                        <FiUser className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
-                        <Input
-                          placeholder="Enter Your Full Name"
-                          {...field}
-                          className="pl-10"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <FormField
                 control={form.control}
                 name="email"
@@ -137,7 +100,7 @@ const RegisterPage = () => {
                     <Label>Email</Label>
                     <FormControl>
                       <div className="relative">
-                        <FiMail className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <FiMail className="absolute left-2 top-[12px]" />
                         <Input
                           placeholder="example@domain.com"
                           {...field}
@@ -150,103 +113,80 @@ const RegisterPage = () => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Phone Number</Label>
-                    <FormControl>
-                      <div className="relative">
-                        <FiPhone className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
-                        <Input
-                          placeholder="+1234567890"
-                          {...field}
-                          className="pl-10"
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Password</Label>
-                    <FormControl>
-                      <div className="relative">
-                        <FiLock className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
-                        <Input
-                          placeholder="Enter Your Password"
-                          type={passwordShown ? "text" : "password"}
-                          {...field}
-                          className="pl-10"
-                        />
-                        <div
-                          className="absolute right-2 top-[50%] transform -translate-y-[50%] cursor-pointer"
-                          onClick={() => setPasswordShown(!passwordShown)}
+              {isDialogOpen && (
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                  <DialogContent>
+                    <DialogHeader>
+                      <div className="flex items-center justify-center mb-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="lucide lucide-mail-check stroke-current text-pink-500 dark:text-blue-500"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         >
-                          {passwordShown ? <FiEyeOff /> : <FiEye />}
-                        </div>
+                          <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" />
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                          <path d="m16 19 2 2 4-4" />
+                        </svg>
                       </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Confirm Password</Label>
-                    <FormControl>
-                      <div className="relative">
-                        <FiLock className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
-                        <Input
-                          placeholder="Enter Your Password Again"
-                          type={confirmPasswordShown ? "text" : "password"}
-                          {...field}
-                          className="pl-10"
-                        />
-                        <div
-                          className="absolute right-2 top-[50%] transform -translate-y-[50%] cursor-pointer"
-                          onClick={() =>
-                            setConfirmPasswordShown(!confirmPasswordShown)
-                          }
+                      <DialogTitle className="text-center font-bold text-2xl">
+                        Reset Email sent
+                      </DialogTitle>
+                      <DialogDescription className="text-center">
+                        We have just sent an email with a password reset link to{" "}
+                        <span className="font-bold text-gray-800 dark:text-gray-200">
+                          {form.getValues("email")}
+                        </span>
+                        . .
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex items-center justify-center gap-x-10 mt-4">
+                      <DialogClose asChild>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          className="space-y-3 p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
                         >
-                          {confirmPasswordShown ? <FiEyeOff /> : <FiEye />}
-                        </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                          Got it
+                        </Button>
+                      </DialogClose>
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        className="space-y-3 p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
+                      >
+                        Send Again
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
 
               <Button
                 disabled={loading}
                 type="submit"
-                className="w-full p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
+                className="w-full space-y-3 p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
               >
                 {loading && (
                   <>
                     <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
                   </>
                 )}
-                Register
+                Submit
               </Button>
+
               <p className="leading-7 [&:not(:first-child)]:mt-6 text-gray-500 text-center">
-                Already Have an Account??{" "}
                 <Link
                   href="/login"
-                  className="text-decoration-line text-black dark:text-gray-200"
+                  className="text-decoration-line text-black dark:text-gray-200 flex flex-row items-center justify-center"
                 >
-                  Login
+                  <ChevronLeft className="mr-2" />
+                  Back to Login
                 </Link>
               </p>
             </form>
@@ -257,4 +197,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default ForgotPassword;
