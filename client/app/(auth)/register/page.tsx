@@ -27,6 +27,14 @@ import { z } from "zod";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiLock,
+  FiEye,
+  FiEyeOff,
+} from "react-icons/fi";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -46,10 +54,21 @@ const formSchema = z.object({
   confirmPassword: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
+  phone: z
+    .string()
+    .min(10, {
+      message: "Phone number must be at least 10 digits.",
+    })
+    .regex(/^\+?[1-9]\d{1,14}$/, {
+      message: "Invalid phone number format.",
+    }),
 });
 
-const Register = () => {
+const RegisterPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,6 +76,7 @@ const Register = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      phone: "",
     },
   });
 
@@ -65,6 +85,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    phone: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,9 +101,9 @@ const Register = () => {
 
   return (
     <>
-      <Card className="w-[360px]">
+      <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle>Register to Meta Doctor</CardTitle>
+          <CardTitle>Register to Railway Dashboard</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -94,7 +115,14 @@ const Register = () => {
                   <FormItem>
                     <Label>Name</Label>
                     <FormControl>
-                      <Input placeholder="Enter Your Name" {...field} />
+                      <div className="relative">
+                        <FiUser className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <Input
+                          placeholder="Enter Your Full Name"
+                          {...field}
+                          className="pl-10"
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +136,35 @@ const Register = () => {
                   <FormItem>
                     <Label>Email</Label>
                     <FormControl>
-                      <Input placeholder="example@domain.com" {...field} />
+                      <div className="relative">
+                        <FiMail className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <Input
+                          placeholder="example@domain.com"
+                          {...field}
+                          className="pl-8"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label>Phone Number</Label>
+                    <FormControl>
+                      <div className="relative">
+                        <FiPhone className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <Input
+                          placeholder="+1234567890"
+                          {...field}
+                          className="pl-10"
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -122,11 +178,21 @@ const Register = () => {
                   <FormItem>
                     <Label>Password</Label>
                     <FormControl>
-                      <Input
-                        placeholder="Enter Your Password"
-                        type="password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <FiLock className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <Input
+                          placeholder="Enter Your Password"
+                          type={passwordShown ? "text" : "password"}
+                          {...field}
+                          className="pl-10"
+                        />
+                        <div
+                          className="absolute right-2 top-[50%] transform -translate-y-[50%] cursor-pointer"
+                          onClick={() => setPasswordShown(!passwordShown)}
+                        >
+                          {passwordShown ? <FiEyeOff /> : <FiEye />}
+                        </div>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,11 +205,16 @@ const Register = () => {
                   <FormItem>
                     <Label>Confirm Password</Label>
                     <FormControl>
-                      <Input
-                        placeholder="Enter Your Password Again"
-                        type="password"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <FiLock className="absolute left-2 top-[50%] transform -translate-y-[50%]" />
+                        <Input
+                          placeholder="Enter Your Password Again"
+                          type="password"
+                          {...field}
+                          className="pl-10"
+                        />
+                        
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -153,7 +224,7 @@ const Register = () => {
               <Button
                 disabled={loading}
                 type="submit"
-                className="p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
+                className="w-full p-3 px-6 rounded-md shadow-lg transform transition duration-300 ease-in-out hover:scale-110 focus:outline-none  from-pink-500 to-orange-500  dark:from-blue-500 dark:to-purple-600 bg-gradient-to-br hover:bg-gradient-to-bl dark:bg-gradient-to-br"
               >
                 {loading && (
                   <>
@@ -162,23 +233,21 @@ const Register = () => {
                 )}
                 Register
               </Button>
+              <p className="leading-7 [&:not(:first-child)]:mt-6 text-gray-500 text-center">
+                Already Have an Account??{" "}
+                <Link
+                  href="/login"
+                  className="text-decoration-line text-black dark:text-gray-200"
+                >
+                  Login
+                </Link>
+              </p>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex-col items-start justify-center">
-          <p className="leading-7 [&:not(:first-child)]:mt-6 text-gray-500">
-            Already Have an Account??{" "}
-            <Link
-              href="/login"
-              className="text-decoration-line text-black dark:text-gray-200"
-            >
-              Login
-            </Link>
-          </p>
-        </CardFooter>
       </Card>
     </>
   );
 };
 
-export default Register;
+export default RegisterPage;
