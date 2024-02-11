@@ -8,6 +8,7 @@ export interface RegisterType {
     email: string;
     password: string;
     confirmPassword : string;
+    phone: string;
 }
 
 export interface SubMenuOpenState {

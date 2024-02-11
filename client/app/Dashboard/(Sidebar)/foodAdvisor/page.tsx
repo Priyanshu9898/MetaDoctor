@@ -9,7 +9,7 @@ const FoodAdvisor = () => {
         imageIcon={"/Images/Sidebar/calory2.png"}
         title={"Food Advisor"}
         description={
-          "Upload Image of Your food to get the exact percentage of calory."
+          "Upload Image of Your food to get the exact percentage of calory in your food."
         }
       />
       <div className="md:p-10 mt-4 md:mt-0">
