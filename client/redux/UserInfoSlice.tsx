@@ -18,12 +18,12 @@ export const LoginUser = createAsyncThunk(
     data: { email: string; password: string; rememberMe?: boolean },
     { rejectWithValue }
   ) => {
-    console.log(data);
+    // console.log(data);
 
     try {
       const res = await axios.post("/api/auth/login", data);
 
-      console.log(res.data);
+    //   console.log(res.data);
 
       return res.data;
     } catch (error) {
@@ -49,11 +49,11 @@ export const RregisterUser = createAsyncThunk(
     },
     { rejectWithValue }
   ) => {
-    console.log(data);
+    // console.log(data);
 
     try {
       const res = await axios.post("/api/auth/register", data);
-      console.log(res.data);
+    //   console.log(res.data);
 
       return res;
     } catch (error) {
