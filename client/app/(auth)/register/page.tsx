@@ -103,7 +103,6 @@ const RegisterPage = () => {
 
       router.push("/Dashboard");
     }
-    
   }, [isAuthenticated]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,10 +113,9 @@ const RegisterPage = () => {
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    // console.log(values);
 
     dispatch(RregisterUser(values));
-
   }
 
   return (
