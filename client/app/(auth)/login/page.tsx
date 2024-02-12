@@ -29,6 +29,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { useDispatch } from "@/redux/store";
+import { LoginUser } from "@/redux/UserInfoSlice";
 
 const formSchema = z.object({
   email: z
@@ -45,9 +47,12 @@ const formSchema = z.object({
   rememberMe: z.boolean().default(false).optional(),
 });
 
+
 const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [passwordShown, setPasswordShown] = useState(false);
+
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,6 +77,9 @@ const LoginPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    dispatch(LoginUser(values));
+
   }
 
   return (

@@ -7,6 +7,7 @@ import { generateJWTToken } from "@/middleware/generateToken";
 interface UserRequestBody {
   name: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 }
@@ -14,11 +15,11 @@ interface UserRequestBody {
 export const POST = async (req: NextRequest) => {
   const body: UserRequestBody = await req.json();
 
-  const { name, email, password, confirmPassword } = body;
+  const { name, email, phone, password, confirmPassword } = body;
 
   // console.log(userName, email, phone, password, confirmPassword, roleID);
 
-  if (!name || !email || !password || !confirmPassword) {
+  if (!name || !email || !phone || !password || !confirmPassword) {
     return NextResponse.json(
       { message: "Please enter all the fields", success: false },
       { status: 400 }
@@ -52,6 +53,7 @@ export const POST = async (req: NextRequest) => {
       data: {
         name: name,
         email: email,
+        phone: phone,
         password: hashedPassword,
       },
     });
@@ -60,6 +62,7 @@ export const POST = async (req: NextRequest) => {
       id: user.id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
     };
 
     const token = await generateJWTToken(tokenData);

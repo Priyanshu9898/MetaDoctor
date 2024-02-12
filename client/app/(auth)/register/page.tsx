@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,6 +35,10 @@ import {
   FiEye,
   FiEyeOff,
 } from "react-icons/fi";
+import { RregisterUser } from "@/redux/UserInfoSlice";
+import { RootState, useDispatch } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -65,9 +69,14 @@ const formSchema = z.object({
 });
 
 const RegisterPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,6 +97,15 @@ const RegisterPage = () => {
     phone: "",
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      form.reset();
+
+      router.push("/Dashboard");
+    }
+    
+  }, [isAuthenticated]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((prev: RegisterType) => ({
       ...prev,
@@ -97,6 +115,9 @@ const RegisterPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    dispatch(RregisterUser(values));
+
   }
 
   return (
@@ -213,7 +234,6 @@ const RegisterPage = () => {
                           {...field}
                           className="pl-10"
                         />
-                        
                       </div>
                     </FormControl>
                     <FormMessage />
