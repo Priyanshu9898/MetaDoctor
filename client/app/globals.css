@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
  
 @layer base {
   :root {
@@ -73,4 +74,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+:root {
+  --hero-text-gradient-light: linear-gradient(to right, #6ee7b7, #3b82f6);
+  --hero-text-gradient-dark: linear-gradient(to right, #fde68a, #f87171);
+}
+
+[data-theme="light"] {
+  --hero-text-gradient: var(--hero-text-gradient-light);
+}
+
+[data-theme="dark"] {
+  --hero-text-gradient: var(--hero-text-gradient-dark);
 }

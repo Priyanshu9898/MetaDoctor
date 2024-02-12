@@ -1,16 +1,36 @@
+"use client";
+
 import { UserState } from "@/constants/Auth";
 import { toastStyle } from "@/utils/ToastStyle";
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const initialState: UserState = {
-  user: null,
-  loading: false,
-  error: null,
-  message: null,
-  isAuthenticated: false,
-};
+function getInitialState(): UserState {
+  // Check if code is running in the browser
+  if (typeof window !== "undefined") {
+    const userItem = localStorage.getItem("user");
+    const isAuthenticatedItem = localStorage.getItem("isAuthenticated") === "1";
+
+    return {
+      user: userItem ? JSON.parse(userItem) : null,
+      loading: false,
+      error: null,
+      message: null,
+      isAuthenticated: isAuthenticatedItem,
+    };
+  } else {
+    return {
+      user: null,
+      loading: false,
+      error: null,
+      message: null,
+      isAuthenticated: false,
+    };
+  }
+}
+
+const initialState: UserState = getInitialState();
 
 export const LoginUser = createAsyncThunk(
   "loginUser",
@@ -23,7 +43,7 @@ export const LoginUser = createAsyncThunk(
     try {
       const res = await axios.post("/api/auth/login", data);
 
-    //   console.log(res.data);
+      //   console.log(res.data);
 
       return res.data;
     } catch (error) {
@@ -53,7 +73,7 @@ export const RregisterUser = createAsyncThunk(
 
     try {
       const res = await axios.post("/api/auth/register", data);
-    //   console.log(res.data);
+      //   console.log(res.data);
 
       return res;
     } catch (error) {
@@ -80,21 +100,24 @@ const userSlice = createSlice({
         state.message = null;
       })
       .addCase(LoginUser.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.loading = false;
-        state.user = action.payload.data.user;
+        state.user = action.payload.user;
         state.error = null;
         state.isAuthenticated = true;
-        state.message = action.payload.data.message;
+        state.message = action.payload.message;
         toast.success(state.message, {
           style: toastStyle,
         });
+        localStorage.setItem("isAuthenticated", "1");
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(LoginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = "An error occurred";
         state.message = "An error occurred";
         state.isAuthenticated = false;
+
         toast.error(state.message, {
           style: toastStyle,
         });
@@ -116,6 +139,8 @@ const userSlice = createSlice({
         toast.success(state.message, {
           style: toastStyle,
         });
+        localStorage.setItem("isAuthenticated", "1");
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(RregisterUser.rejected, (state, action) => {
         state.loading = false;

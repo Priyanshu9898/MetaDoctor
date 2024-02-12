@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,8 +29,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
-import { useDispatch } from "@/redux/store";
+import { RootState, useDispatch } from "@/redux/store";
 import { LoginUser } from "@/redux/UserInfoSlice";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z
@@ -47,11 +49,13 @@ const formSchema = z.object({
   rememberMe: z.boolean().default(false).optional(),
 });
 
-
 const LoginPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const [passwordShown, setPasswordShown] = useState(false);
 
+  const router = useRouter();
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -79,8 +83,17 @@ const LoginPage = () => {
     // console.log(values);
 
     dispatch(LoginUser(values));
-
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      form.reset();
+
+      console.log(isAuthenticated);
+
+      router.push("/Dashboard");
+    }
+  }, [isAuthenticated]);
 
   return (
     <>
