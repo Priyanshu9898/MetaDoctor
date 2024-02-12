@@ -111,7 +111,6 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
                     alt={item.label}
                     width={36}
                     height={36}
-                    layout="fixed"
                   />
                 </TooltipTrigger>
                 {isCollapsed && (
