@@ -89,7 +89,7 @@ const LoginPage = () => {
     if (isAuthenticated) {
       form.reset();
 
-      console.log(isAuthenticated);
+      // console.log(isAuthenticated);
 
       router.push("/Dashboard");
     }

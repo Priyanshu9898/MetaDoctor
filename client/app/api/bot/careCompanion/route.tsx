@@ -1,4 +1,4 @@
-import {GoogleGenerativeAI} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,15 +8,12 @@ console.log(api_key);
 
 const genAI = new GoogleGenerativeAI(api_key);
 
-export const POST = async (req:NextRequest, res: NextResponse) => {
-    try {
-        const body = await req.json();
-        
+export const POST = async (req: NextRequest, res: NextResponse) => {
+  try {
+    const body = await req.json();
 
 
+    
 
-    } catch (error) {
-        
-    }
-}
-
+  } catch (error) {}
+};

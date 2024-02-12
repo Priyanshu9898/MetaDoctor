@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-        <Toaster />
+          <Toaster />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

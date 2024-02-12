@@ -17,8 +17,6 @@ export const POST = async (req: NextRequest) => {
 
   const { name, email, phone, password, confirmPassword } = body;
 
-  // console.log(userName, email, phone, password, confirmPassword, roleID);
-
   if (!name || !email || !phone || !password || !confirmPassword) {
     return NextResponse.json(
       { message: "Please enter all the fields", success: false },

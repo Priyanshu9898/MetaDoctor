@@ -88,7 +88,7 @@ const SidebarMobile = () => {
                   alt={item.label}
                   width={36}
                   height={36}
-                  layout="fixed"
+                  
                 />
 
                 <span className="ml-4 text-sm font-semibold">{item.label}</span>
@@ -105,7 +105,7 @@ const SidebarMobile = () => {
               alt={"logout"}
               width={36}
               height={36}
-              layout="fixed"
+              
             />
 
             <span className="ml-4 text-sm font-semibold">{"Logout"}</span>
