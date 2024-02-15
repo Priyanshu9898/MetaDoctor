@@ -28,7 +28,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     Your response must include the following elements:
     1. A detailed enumeration of each food item's caloric content as identified from the image.
     2. The aggregate caloric value of all the food items combined.
-    3. A seven-day meal plan that includes recommendations for breakfast, lunch, dinner, and two snacks for each day, designed to maintain a balanced diet.
+    3. A seven-day India strict Vegetarian meal plan that includes recommendations for breakfast, lunch, dinner, and two snacks for each day, designed to maintain a balanced diet.
     
     Please ensure your response is formatted as structured JSON, adhering to the example format provided below. Note: The ellipsis ("...") symbol is used here to indicate continuation or the presence of additional items or days in the meal plan. These symbols should not be included in your actual JSON response. Ensure no markdown syntax (such as backticks) or additional characters that would invalidate the JSON format are included in your response.
     

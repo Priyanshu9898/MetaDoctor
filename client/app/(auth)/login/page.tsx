@@ -83,6 +83,8 @@ const LoginPage = () => {
     // console.log(values);
 
     dispatch(LoginUser(values));
+
+    // router.push("/Dashboard");
   }
 
   useEffect(() => {

@@ -116,6 +116,8 @@ const RegisterPage = () => {
     // console.log(values);
 
     dispatch(RregisterUser(values));
+
+    router.push("/Dashboard");
   }
 
   return (
