@@ -43,7 +43,8 @@ const FoodAdvisor = () => {
   const [caloryItems, setCaloryItems] = useState([]);
   const [totalCalories, setTotalCalories] = useState("0");
   const [weeklyMealPlan, setWeeklyMealPlan] = useState<WeeklyMealPlan>({});
-
+  const [imageFile, setImageFile] = useState<File | null>(null); 
+  
   const renderMealPlanDay = (day: string, mealPlanDay: MealPlanDay) => {
     return (
       <Card key={day} className="mt-6">
@@ -79,32 +80,40 @@ const FoodAdvisor = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      setImageFile(file); 
+      setImageMimeType(file.type);
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
           setImage(reader.result);
-          setImageMimeType(file.type);
         }
       };
     }
   };
 
-  const handlePredict = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (image && imageMimeType) {
-      // Check if both image and MIME type are available
+  const handlePredict = async () => {
+    if (imageFile) {
       setIsLoading(true);
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      if (imageFile.type) {
+        formData.append("mimeType", imageFile.type); 
+      }
 
       try {
-        const res = await axios.post(CALORY_DETECTOR, {
-          image: image.split(",")[1], // Base64-encoded data
-          mimeType: imageMimeType, // the MIME type
+        const res = await axios.post(CALORY_DETECTOR, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
+
+        // const data = res.data;
 
         const data = JSON.parse(res.data.response);
 
-        console.log(data);
+        // console.log(data);
+
         setCaloryItems(data.image_analysis.items);
         setTotalCalories(data.image_analysis.total_calories);
         setWeeklyMealPlan(data.weekly_meal_plan || {});
@@ -115,7 +124,7 @@ const FoodAdvisor = () => {
         setIsLoading(false);
       }
     } else {
-      console.error("No image to predict or MIME type is missing");
+      console.error("No image file selected");
     }
   };
 
