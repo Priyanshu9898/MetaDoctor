@@ -16,12 +16,14 @@ const fileToGenerativePart = (data: string, mimeType: any) => {
   };
 };
 
+
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const body = await req.formData();
-
+    
     const image: File | null = body.get("image") as unknown as File;
     const mimeType: string | null = body.get("mimeType") as string;
+    console.log(mimeType);
 
     if (!image) {
       return NextResponse.json(
@@ -95,13 +97,17 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const response = await result.response;
     const text = response.text();
 
+    console.log(JSON.parse(text));
+
+    const finaltext = JSON.parse(text);
+
     // console.log(text);
 
     return NextResponse.json(
       {
         message: "Response generated successfully",
         success: true,
-        response: text,
+        response: finaltext,
       },
       { status: 201 }
     );

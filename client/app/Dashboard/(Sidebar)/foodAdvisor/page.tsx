@@ -110,7 +110,7 @@ const FoodAdvisor = () => {
 
         // const data = res.data;
 
-        const data = JSON.parse(res.data.response);
+        const data = res.data.response;
 
         // console.log(data);
 
