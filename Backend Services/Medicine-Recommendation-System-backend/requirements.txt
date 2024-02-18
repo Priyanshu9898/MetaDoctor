@@ -1,0 +1,21 @@
+pandas 
+dvc
+mlflow
+notebook
+numpy
+matplotlib
+seaborn
+python-box
+pyYAML
+tqdm
+ensure
+joblib
+types-PyYAML
+Flask
+Flask-Cors
+flask-swagger-ui
+gunicorn
+gdown
+scikit-learn
+dill
+-e .

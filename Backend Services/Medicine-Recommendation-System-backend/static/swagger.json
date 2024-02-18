@@ -1,0 +1,92 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "title": "Medicine Recommendation System Backend",
+      "description": "API for predicting medicine recommendations based on symptoms.",
+      "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": [
+      "http"
+  ],
+  "consumes": [
+      "application/json"
+  ],
+  "produces": [
+      "application/json"
+  ],
+  "paths": {
+      "/predict": {
+          "post": {
+              "summary": "Predict Medicine Recommendations",
+              "description": "Receive symptoms and return medicine recommendations.",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "body",
+                      "required": true,
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "symptoms": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  },
+                                  "description": "List of symptoms"
+                              }
+                          },
+                          "example": {
+                              "symptoms": ["headache", "fever"]
+                          }
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successful response",
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "Description": {
+                                  "type": "string"
+                              },
+                              "Diets": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  }
+                              },
+                              "Medications": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  }
+                              },
+                              "Precautions": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  }
+                              },
+                              "Predicted Disease": {
+                                  "type": "string"
+                              },
+                              "Workout": {
+                                  "type": "array",
+                                  "items": {
+                                      "type": "string"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "500": {
+                      "description": "Error occurred"
+                  }
+              }
+          }
+      }
+  }
+}
