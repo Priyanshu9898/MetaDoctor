@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/chestCancerClassification/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 5d7a1322cf35f4c3e11059430e416450
+      size: 1786
+    - path: src/chestCancerClassification/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 9d60f2bb4aac6de1fc65144e95845424
+      size: 944
+    outs:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: cdf30b734d01dbc64537884dc3582586.dir
+      size: 249287503
+      nfiles: 1001

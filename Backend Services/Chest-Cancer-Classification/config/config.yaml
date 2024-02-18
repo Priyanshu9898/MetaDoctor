@@ -1,0 +1,35 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_url: "https://drive.google.com/file/d/1X8-rfF8v_Pk5VnKJq8Qal7-ZdFf3Ju5e/view?usp=sharing"
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_data: artifacts/data_ingestion
+
+prepare_base_model:
+  root_dir: artifacts/base_models
+  base_model_vgg16 : artifacts/base_models/vgg16.h5
+  updated_base_model_vgg16 : artifacts/base_models/updated_vgg16.h5
+  base_model_vgg19 : artifacts/base_models/vgg19.h5
+  updated_base_model_vgg19 : artifacts/base_models/updated_vgg19.h5
+  base_model_inceptionv3 : artifacts/base_models/inceptionv3.h5
+  updated_base_model_inceptionv3 : artifacts/base_models/updated_inceptionv3.h5
+  base_model_xception : artifacts/base_models/xception.h5
+  updated_base_model_xception : artifacts/base_models/updated_xception.h5
+  base_model_resnet : artifacts/base_models/resnet.h5
+  updated_base_model_resnet : artifacts/base_models/updated_resnet.h5
+  base_model_mobilenet : artifacts/base_models/mobilenet.h5
+  updated_base_model_mobilenet : artifacts/base_models/updated_mobilenet.h5
+  base_model_mobilenetv2 : artifacts/base_models/mobilenetv2.h5
+  updated_base_model_mobilenetv2 : artifacts/base_models/updated_mobilenetv2.h5
+
+training:
+  root_dir: artifacts/training
+  results_dir: results
+  trained_model_path_vgg16 : artifacts/training/vgg16.h5
+  trained_model_path_vgg19 : artifacts/training/vgg19.h5
+  trained_model_path_inceptionv3 : artifacts/training/inceptionv3.h5
+  trained_model_path_xception : artifacts/training/exception.h5
+  trained_model_path_resnet : artifacts/training/resnet.h5
+  trained_model_path_mobilenet : artifacts/training/mobilenet.h5
+  trained_model_path_mobilenetv2 : artifacts/training/mobilenetv2.h5
