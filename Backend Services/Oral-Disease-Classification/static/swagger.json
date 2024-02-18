@@ -1,0 +1,78 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Oral Disease Classifier API",
+    "description": "API for training and predicting oral diseases",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "schemes": ["http"],
+  "paths": {
+    "/train": {
+      "post": {
+        "summary": "Train a model",
+        "description": "Trains a model with the specified model name.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Model name to train",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TrainModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Model trained successfully"
+          }
+        }
+      }
+    },
+    "/predict": {
+      "post": {
+        "summary": "Predict an image",
+        "description": "Predicts the class of the given image.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Image to predict",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PredictImage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prediction result"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TrainModel": {
+      "type": "object",
+      "properties": {
+        "model_name": {
+          "type": "string"
+        }
+      }
+    },
+    "PredictImage": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string",
+          "format": "byte"
+        },
+        "model_name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

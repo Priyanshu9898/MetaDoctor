@@ -1,0 +1,17 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://drive.google.com/file/d/13NFWEqtL_3Vxsr02ehXoYTapp63dMIDM/view?usp=sharing
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion/dataset
+
+data_processing:
+  data_dir: artifacts/data_ingestion/dataset
+  
+model_training:
+  root_dir: artifacts/results
+  checkpoint_path: artifacts/results/checkpoint.pt
+  model_path: artifacts/results
+  acccuracy_path: artifacts/results
+  confusionMetrix_path: artifacts/results

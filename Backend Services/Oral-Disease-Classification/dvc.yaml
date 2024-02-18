@@ -1,0 +1,9 @@
+stages:
+  data_ingestion:
+    cmd: python src/OralDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+    deps: 
+      - src/OralDiseaseClassifier/components/data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/data.zip
+      - artifacts/data_ingestion/dataset

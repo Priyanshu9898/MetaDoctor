@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/OralDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: a6616e356dfdfe4f56d156f2d55e0f0e
+      size: 273
+    - path: src/OralDiseaseClassifier/components/data_ingestion.py
+      hash: md5
+      md5: 887e95386d00b74ec34ec2233281503e
+      size: 1458
+    outs:
+    - path: artifacts/data_ingestion/data.zip
+      hash: md5
+      md5: 52b71689b78296dde97f441d9f191b9b
+      size: 204986016
