@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { MEDICINE_RECOMMENDATION_API } from "@/utils/APIs/api";
 import axios from "axios";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TabsMain from "./TabsMain";
 
 type Symptom = string;
 
@@ -154,11 +154,12 @@ const InputSymptoms = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
-  const [description, setDescription] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
   const [precautions, setPrecautions] = useState<string[]>([]);
   const [diets, setDiets] = useState<string[]>([]);
   const [medications, setMedications] = useState<string[]>([]);
   const [workout, setWorkout] = useState<string[]>([]);
+  const [disease, setDisease] = useState<string>("");
 
   const toggleSymptom = (symptom: Symptom) => {
     if (selectedSymptoms.includes(symptom)) {
@@ -196,13 +197,14 @@ const InputSymptoms = () => {
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
+    setShowResult(false);
     try {
       setLoading(true);
       const data = {
         symptoms: selectedSymptoms,
       };
 
-      console.log(data);
+      // console.log(data);
       const res = await axios.post(
         `${MEDICINE_RECOMMENDATION_API}/predict`,
         data
@@ -216,7 +218,8 @@ const InputSymptoms = () => {
         setPrecautions(res.data.Precautions);
         setMedications(res.data.Medications);
         setWorkout(res.data.Workout);
-        setDiets(res.data.diets);
+        setDiets(res.data.Diets);
+        setDisease(res.data["Predicted Disease"]);
       }
 
       setLoading(false);
@@ -292,7 +295,19 @@ const InputSymptoms = () => {
         </Button>
       </div>
 
-      {showResult && <></>}
+      {showResult && (
+        <>
+          <p className="text-center mt-2 font-semibold text-3xl">
+            Predicted Disease:{" "}
+            <span className="font-bold bg-gradient-to-br from-pink-500 to-orange-500 dark:from-blue-500 dark:to-purple-600 text-transparent bg-clip-text">
+              {" "}
+              {disease}{" "}
+            </span>
+          </p>
+
+          <TabsMain description={description} workout={workout} medications={medications} diets={diets} precautions={precautions} />
+        </>
+      )}
     </>
   );
 };
