@@ -93,8 +93,7 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
     dispatch(LogoutUser());
     if (!isAuthenticated) {
       router.push("/");
-    }
-    else{
+    } else {
       router.push("/Dashboard");
     }
   };
@@ -153,6 +152,7 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
 
         <div
           key={"logout"}
+          onClick={handleLogout}
           className={`flex items-center justify-${
             isCollapsed ? "center" : "start"
           } p-3 my-2 cursor-pointer hover:bg-red-200 hover:text-gray-800 dark:hover:bg-red-200 rounded-lg transition-colors `}
@@ -165,7 +165,6 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
                   alt={"logout"}
                   width={36}
                   height={36}
-                 
                 />
               </TooltipTrigger>
               {isCollapsed && (
@@ -176,7 +175,7 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
             </Tooltip>
           </TooltipProvider>
           {!isCollapsed && (
-            <span className="ml-4 text-sm font-semibold" onClick={handleLogout}>{"Logout"}</span>
+            <span className="ml-4 text-sm font-semibold">{"Logout"}</span>
           )}
         </div>
       </nav>

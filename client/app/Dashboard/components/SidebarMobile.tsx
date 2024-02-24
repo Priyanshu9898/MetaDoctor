@@ -123,6 +123,7 @@ const SidebarMobile = () => {
 
           <div
             key={"logout"}
+            onClick={handleLogout}
             className={`flex items-center justify-start p-3 my-2 cursor-pointer hover:bg-red-200 hover:text-gray-800 dark:hover:bg-red-200 rounded-lg transition-colors `}
           >
             <Image
@@ -132,7 +133,7 @@ const SidebarMobile = () => {
               height={36}
             />
 
-            <span className="ml-4 text-sm font-semibold" onClick={handleLogout}>
+            <span className="ml-4 text-sm font-semibold" >
               {"Logout"}
             </span>
           </div>
