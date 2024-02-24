@@ -8,12 +8,22 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 const LandingNavbar = () => {
   const { isAuthenticated, user } = useSelector(
     (state: RootState) => state.user
-    
   );
+
+  const router = useRouter();
+
+  const handleClickLogin = () => {
+    router.push("/login");
+  };
+
+  const handleClickDashboard = () => {
+    router.push("/Dashboard");
+  };
 
   return (
     <nav className="flex w-full border-b border-gray-200 dark:border-gray-700">
@@ -31,18 +41,20 @@ const LandingNavbar = () => {
             <>
               <Button
                 id="sidebar-dashboard"
+                onClick={handleClickDashboard}
                 className="p-3 rounded-lg px-6 bg-gradient-to-br dark:from-blue-500 dark:to-purple-600 shadow-lg transform transition duration-300 ease-in-out hover:scale-110 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 dark:focus:ring-blue-300 from-pink-500 to-orange-500 focus:ring-pink-300 hidden md:flex"
               >
-                <Link href="/Dashboard">Dashboard</Link>
+                Dashboard
               </Button>
             </>
           ) : (
             <>
               <Button
                 id="sidebar-dashboard"
+                onClick={handleClickLogin}
                 className="p-3 rounded-lg px-6 bg-gradient-to-br dark:from-blue-500 dark:to-purple-600 shadow-lg transform transition duration-300 ease-in-out hover:scale-110 hover:bg-gradient-to-bl focus:outline-none focus:ring-4 dark:focus:ring-blue-300 from-pink-500 to-orange-500 focus:ring-pink-300 hidden md:flex"
               >
-                <Link href="/login">Login</Link>
+                Login
               </Button>
             </>
           )}
