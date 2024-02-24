@@ -90,7 +90,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    // console.log(model);
+    console.log(model);
 
     const result = await model.generateContent([input_prompt, imageData]);
 
@@ -101,7 +101,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
     const finaltext = JSON.parse(text);
 
-    // console.log(text);
+    console.log(finaltext);
 
     return NextResponse.json(
       {

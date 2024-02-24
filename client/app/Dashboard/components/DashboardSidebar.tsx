@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -11,6 +11,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { SubMenuOpenState } from "@/constants/Auth";
+import { useSelector } from "react-redux";
+import { RootState, useDispatch } from "@/redux/store";
+import { LogoutUser } from "@/redux/UserInfoSlice";
 
 const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
   const [subMenuOpen, setSubMenuOpen] = useState<SubMenuOpenState>({});
@@ -79,6 +82,28 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
       imgSrc: "/Images/Sidebar/about.png",
     },
   ];
+
+  const router = useRouter();
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    dispatch(LogoutUser());
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+    else{
+      router.push("/Dashboard");
+    }
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated]);
 
   const getItemClassName = (href: string) =>
     `flex items-center justify-${
@@ -151,7 +176,7 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
             </Tooltip>
           </TooltipProvider>
           {!isCollapsed && (
-            <span className="ml-4 text-sm font-semibold">{"Logout"}</span>
+            <span className="ml-4 text-sm font-semibold" onClick={handleLogout}>{"Logout"}</span>
           )}
         </div>
       </nav>

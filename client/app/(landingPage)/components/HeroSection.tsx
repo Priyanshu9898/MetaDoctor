@@ -3,6 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 const HeroSection = () => {
   const { theme } = useTheme(); // Using useTheme hook to get the current theme
@@ -21,6 +22,25 @@ const HeroSection = () => {
       ? "linear-gradient(to right, #fde68a, #f87171)"
       : "linear-gradient(to right, #6ee7b7, #3b82f6)";
 
+  const words = [
+    {
+      text: "Transforming",
+    },
+    {
+      text: "Healthcare",
+    },
+    {
+      text: "with",
+    },
+    {
+      text: "AI",
+    },
+    // {
+    //   text: "Aceternity.",
+    //   className: "text-blue-500 dark:text-blue-500",
+    // },
+  ];
+
   return (
     <>
       <motion.div
@@ -29,21 +49,12 @@ const HeroSection = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
-        {/* <motion.div animate={controls} className="absolute w-full h-full">
-          <Image
-            src="/Images/landingPage/back1.jpg"
-            alt="Background Image"
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-        </motion.div> */}
-
         <div className="z-10 px-6">
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent"
             style={{ backgroundImage: directGradient }}
           >
+         
             Transforming Healthcare with AI
           </h1>
           <p

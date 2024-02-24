@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
@@ -12,8 +14,34 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState, useDispatch } from "@/redux/store";
+import { LogoutUser } from "@/redux/UserInfoSlice";
 
 const UserProfile = () => {
+  const router = useRouter();
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    dispatch(LogoutUser());
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+    else{
+      router.push("/Dashboard");
+    }
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated]);
+
   return (
     <>
       <Popover>
@@ -33,7 +61,10 @@ const UserProfile = () => {
               Profile
             </Link>
 
-            <p className="px-4 py-2 hover:bg-red-100  dark:hover:bg-red-700 hover:text-red-600 dark:hover:text-gray-100 cursor-pointer transition-colors duration-200 rounded-md">
+            <p
+              onClick={handleLogout}
+              className="px-4 py-2 hover:bg-red-100  dark:hover:bg-red-700 hover:text-red-600 dark:hover:text-gray-100 cursor-pointer transition-colors duration-200 rounded-md"
+            >
               Logout
             </p>
           </div>

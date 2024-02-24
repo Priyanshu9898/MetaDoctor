@@ -87,6 +87,17 @@ export const RregisterUser = createAsyncThunk(
   }
 );
 
+export const LogoutUser = createAsyncThunk("LogoutUser", async () => {
+  // console.log(data);
+
+  try {
+    const res = await axios.get("/api/auth/logout");
+    return res;
+  } catch (error: any) {
+    return error?.message;
+  }
+});
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -147,6 +158,34 @@ const userSlice = createSlice({
         state.error = "An error occurred";
         state.message = "An error occurred";
         state.isAuthenticated = false;
+        toast.error(state.message, {
+          style: toastStyle,
+        });
+      });
+    builder
+      .addCase(LogoutUser.pending, (state, action) => {
+        state.loading = true;
+        state.message = null;
+        state.error = null;
+      })
+      .addCase(LogoutUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = null;
+        state.isAuthenticated = false;
+        state.message = "User Logged out successfully";
+        toast.success(state.message, {
+          style: toastStyle,
+        });
+        localStorage.removeItem("isAuthenticated");
+
+        localStorage.removeItem("user");
+      })
+      .addCase(LogoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = "An error occurred";
+        state.message = "An error occurred";
+        state.isAuthenticated = true;
         toast.error(state.message, {
           style: toastStyle,
         });

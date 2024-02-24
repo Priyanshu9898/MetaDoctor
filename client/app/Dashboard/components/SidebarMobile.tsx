@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,10 +10,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { LogoutUser } from "@/redux/UserInfoSlice";
+import { RootState, useDispatch } from "@/redux/store";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const SidebarMobile = () => {
   const pathname = usePathname();
@@ -72,6 +77,27 @@ const SidebarMobile = () => {
         : "text-gray-900 hover:text-white dark:text-gray-200"
     }`;
 
+  const router = useRouter();
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.user
+  );
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    dispatch(LogoutUser());
+    if (!isAuthenticated) {
+      router.push("/");
+    } else {
+      router.push("/Dashboard");
+    }
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+  }, [isAuthenticated]);
+
   return (
     <div>
       <div className="grid gap-2 py-0">
@@ -88,7 +114,6 @@ const SidebarMobile = () => {
                   alt={item.label}
                   width={36}
                   height={36}
-                  
                 />
 
                 <span className="ml-4 text-sm font-semibold">{item.label}</span>
@@ -105,10 +130,11 @@ const SidebarMobile = () => {
               alt={"logout"}
               width={36}
               height={36}
-              
             />
 
-            <span className="ml-4 text-sm font-semibold">{"Logout"}</span>
+            <span className="ml-4 text-sm font-semibold" onClick={handleLogout}>
+              {"Logout"}
+            </span>
           </div>
         </nav>
       </div>
