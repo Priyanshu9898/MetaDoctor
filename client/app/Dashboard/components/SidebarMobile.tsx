@@ -28,6 +28,11 @@ const SidebarMobile = () => {
       imgSrc: "/Images/Sidebar/dashboard6.png",
     },
     {
+      href: "/BookAppointment",
+      label: "Book an Appointment",
+      imgSrc: "/Images/Sidebar/appointment.png",
+    },
+    {
       href: "/Dashboard/medicineRecommender",
       label: "Medicine Recommendation",
       imgSrc: "/Images/Sidebar/medicine_recommendation.png",

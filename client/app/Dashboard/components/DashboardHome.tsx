@@ -6,6 +6,11 @@ import { motion } from "framer-motion";
 
 const DashboardHome = () => {
   const navItems = [
+    {
+      href: "/BookAppointment",
+      label: "Book an Appointment",
+      imgSrc: "/Images/Sidebar/appointment.png",
+    },
     
     {
       href: "/Dashboard/medicineRecommender",

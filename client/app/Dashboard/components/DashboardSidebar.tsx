@@ -35,11 +35,13 @@ const DashboardSidebar = ({ isCollapsed }: { isCollapsed: boolean }) => {
   };
 
   const navItems = [
+    
     {
       href: "/Dashboard",
       label: "Dashboard",
       imgSrc: "/Images/Sidebar/dashboard6.png",
     },
+   
     {
       href: "/Dashboard/medicineRecommender",
       label: "Medicine Recommendation",

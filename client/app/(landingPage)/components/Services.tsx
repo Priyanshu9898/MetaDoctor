@@ -24,7 +24,7 @@ const Services = () => {
       name: "Oral Disease Classification",
       description:
         "Innovative solutions for detecting and classifying oral diseases.",
-      icon: "/Images/Sidebar/oral.png",
+      icon: "/Images/Sidebar/Oral.png",
       alt: "Oral Disease Classification",
     },
     {
