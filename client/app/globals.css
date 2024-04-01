@@ -97,3 +97,48 @@
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.hover-link {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.hover-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(61, 83, 219);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.hover-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.hover-link:hover {
+  color: rgb(61, 83, 219);
+}
+
+.active {
+  color: rgb(61, 83, 219);
+}
+
+.gradient-text {
+  background: linear-gradient(to right, rgb(61, 83, 219), rgb(91, 113, 249));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-button {
+  background: linear-gradient(to right, rgb(61, 83, 219), rgb(91, 113, 249));
+  color: white;
+  border-radius: 10px;
+}

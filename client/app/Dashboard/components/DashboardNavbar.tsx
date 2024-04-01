@@ -46,11 +46,14 @@ const DashboardNavbar = ({ toggleSidebar }: DashboardNavbarProps) => {
               <SidebarMobile />
             </SheetContent>
           </Sheet>
-          <Link href="/">
+          {/* <Link href="/">
             <h6 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Meta Doctor
             </h6>
-          </Link>
+          </Link> */}
+          <Link href="/" className="text-2xl md:text-4xl font-bold gradient-text">
+        MetaDoctor
+      </Link>
         </div>
         <div className="flex flex-row justify-between items-center gap-4">
           <ThemeSwitcher />

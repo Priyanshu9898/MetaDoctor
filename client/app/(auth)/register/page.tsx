@@ -124,7 +124,7 @@ const RegisterPage = () => {
     <>
       <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle>Register to Railway Dashboard</CardTitle>
+          <CardTitle>Register to Meta Doctor</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>

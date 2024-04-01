@@ -6,7 +6,7 @@ export const MEDICINE_RECOMMENDATION_API = "https://medicinerecommender.azureweb
 // export const CANCER_DISEASE_API = "https://chest-cancer-classification-ck5n.onrender.com/predict";
 // export const CALORY_DETECTOR = "/api/bot/foodAdvisor";
 // metadoctorservices.azurewebsites.net
-export const KIDNEY_DISEASE_API = "https://metadoctorservices.azurewebsites.net/predict_kidney_disease";
-export const ORAL_DISEASE_API = "https://metadoctorservices.azurewebsites.net/predict_oral_disease";
-export const CANCER_DISEASE_API = "https://metadoctorservices.azurewebsites.net/predict_cancer_disease";
-export const CALORY_DETECTOR = "https://metadoctorservices.azurewebsites.net/bot/foodAdvisor";
+export const KIDNEY_DISEASE_API = "https://kidneydiseaseclassificationbackend.onrender.com/predict_kidney_disease";
+export const ORAL_DISEASE_API = "https://kidneydiseaseclassificationbackend.onrender.com/predict_oral_disease";
+export const CANCER_DISEASE_API = "https://kidneydiseaseclassificationbackend.onrender.com/predict_cancer_disease";
+export const CALORY_DETECTOR = "https://kidneydiseaseclassificationbackend.onrender.com/bot/foodAdvisor";

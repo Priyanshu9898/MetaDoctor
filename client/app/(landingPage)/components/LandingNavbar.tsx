@@ -29,11 +29,14 @@ const LandingNavbar = () => {
     <nav className="flex w-full border-b border-gray-200 dark:border-gray-700">
       <div className="flex w-screen px-6 py-4 items-center justify-between overflow-x-clip">
         <div className="flex items-center justify-between gap-6">
-          <Link href="/">
+          {/* <Link href="/">
             <h6 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Meta Doctor
             </h6>
-          </Link>
+          </Link> */}
+          <Link href="/" className="text-2xl md:text-4xl font-bold gradient-text">
+        MetaDoctor
+      </Link>
         </div>
         <div className="flex flex-row justify-between items-center gap-4">
           <ThemeSwitcher />
